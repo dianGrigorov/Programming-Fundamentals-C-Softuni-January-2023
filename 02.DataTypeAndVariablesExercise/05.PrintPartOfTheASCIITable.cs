@@ -9,11 +9,11 @@ namespace _05.PrintPartOfTheASCIITable
             int start = int.Parse(Console.ReadLine());
             int end = int.Parse(Console.ReadLine());
             
-            char character = '\0';
+            
             for (int i = start; i <= end; i++)
             {
-               character = Convert.ToChar(i);
-                Console.Write($"{character} ");
+               char character = (char)i;
+                Console.Write(character + " ");
             }
            
         }
