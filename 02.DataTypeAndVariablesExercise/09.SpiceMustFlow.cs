@@ -6,23 +6,35 @@ namespace _09.SpiceMustFlow
     {
         static void Main(string[] args)
         {
-            uint spice = uint.Parse(Console.ReadLine());
-            uint daysCnt = 0;
+            int spice = int.Parse(Console.ReadLine());
+            int daysCnt = 0;
             BigInteger produseSpice = 0;
-            uint consume = 26;
+            int consume = 26;
 
-            while (spice >= 100)
+            if (spice < 100)
             {
-                daysCnt++;
-                produseSpice += (BigInteger)spice - consume;
-                spice -= 10;
+                produseSpice -= consume;
+                if (produseSpice < 0)
+                {
+                    produseSpice = 0;
+                }
+                Console.WriteLine(daysCnt);
+                Console.WriteLine(produseSpice);
+                return;
+            }
+            else
+            {
+                while (spice >= 100)
+                {
+                    daysCnt++;
+                    produseSpice += (BigInteger)spice - consume;
+                    spice -= 10;
 
+                }
+               
             }
             produseSpice -= consume;
-            if (spice <= consume)
-            {
-                produseSpice = 0;
-            }
+
             Console.WriteLine(daysCnt);
             Console.WriteLine(produseSpice);
         }
