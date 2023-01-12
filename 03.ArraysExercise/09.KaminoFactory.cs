@@ -6,76 +6,71 @@ namespace Kamino_Factory
     {
         static void Main(string[] args)
         {
-            string command;
-            int maxSeq = 0;
-            int indexOfBestDna = 0;
-            int range = int.Parse(Console.ReadLine());
-            int[] bestDna = new int[range];
 
-            int currSum = 0;
-            int bestSum = 0;
-
+            int n = int.Parse(Console.ReadLine());
+            int[] bestDna = new int[n];
             int sample = 0;
             int bestSample = 0;
+            int bestCnt = 0;
+            int bestSum = 0;
+            int bestDnaIndex = 0;
+            int statrIndex = 0;
 
+            string command;
             while ((command = Console.ReadLine()) != "Clone them!")
             {
-                int cntSeq = 1;
-                int[] dna = new int[range];
-                dna = command
-                      .Split("!", StringSplitOptions.RemoveEmptyEntries)
-                      .Select(int.Parse)
-                      .ToArray();
-                currSum = dna.Sum();
+
                 sample++;
-
-                for (int currIndex = 0; currIndex < dna.Length - 1; currIndex++)
+                int[] dna = command
+                .Split("!", StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+                int sum = dna.Sum();
+                for (int i = 0; i < dna.Length - 1; i++)
                 {
-                    if (dna[currIndex] != dna[currIndex + 1])
+                    int cntSequence = 1;
+                    if (dna[i] == 1 && dna[i] == dna[i + 1])
                     {
-                        cntSeq = 1;
-                        continue;
+                        if (cntSequence == 1)
+                        {
+                            statrIndex = i;
+                        }
+                        cntSequence++;
                     }
-                    cntSeq++;
-                    if (cntSeq > maxSeq)
+
+                    if (cntSequence > bestCnt)
                     {
-                        maxSeq = cntSeq;
+                        bestCnt = cntSequence;
                         bestDna = dna;
-                        indexOfBestDna = currIndex;
-                        bestSum = currSum;
                         bestSample = sample;
-                        continue;
-
+                        bestSum = sum;
+                        bestDnaIndex = statrIndex;
                     }
-
-                    if (cntSeq == maxSeq)
+                    else if (cntSequence == bestCnt)
                     {
-                        if (currIndex < indexOfBestDna)
+                        if (statrIndex < bestDnaIndex)
                         {
                             bestDna = dna;
-                            indexOfBestDna = currIndex;
-                            bestSum = currSum;
                             bestSample = sample;
-
+                            bestSum = sum;
+                            bestDnaIndex = statrIndex;
                         }
-                        else if (currIndex == indexOfBestDna)
+                        else if (statrIndex == bestDnaIndex)
                         {
-                            if (currSum > bestSum)
+                            if (sum > bestSum)
                             {
                                 bestDna = dna;
-                                indexOfBestDna = currIndex;
-                                bestSum = currSum;
                                 bestSample = sample;
-
+                                bestSum = sum;
                             }
                         }
-
                     }
 
                 }
             }
             Console.WriteLine($"Best DNA sample {bestSample} with sum: {bestSum}.");
-            Console.WriteLine(String.Join(" ", bestDna));
+            Console.WriteLine(string.Join(" ", bestDna));
+
         }
     }
 }
