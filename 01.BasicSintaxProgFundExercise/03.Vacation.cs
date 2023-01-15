@@ -10,8 +10,8 @@ namespace _03.Vacation
             int people = int.Parse(Console.ReadLine());
             string type = Console.ReadLine();
             string day = Console.ReadLine();
-            double price = 0;
-            double totalPrice = 0;
+            decimal price = 0;
+            decimal totalPrice = 0;
 
             switch (day)
             {
@@ -19,13 +19,13 @@ namespace _03.Vacation
                     switch (type)
                     {
                         case "Students":
-                            price = 8.45;
+                            price = 8.45m;
                             break;
                         case "Business":
-                            price = 10.9;
+                            price = 10.9m;
                             break;
                         case "Regular":
-                            price = 15.0;
+                            price = 15;
                             break;
                     }
                     break;
@@ -33,13 +33,13 @@ namespace _03.Vacation
                     switch (type)
                     {
                         case "Students":
-                            price = 9.8;
+                            price = 9.8m;
                             break;
                         case "Business":
-                            price = 15.6;
+                            price = 15.6m;
                             break;
                         case "Regular":
-                            price = 20.0;
+                            price = 20;
                             break;
                     }
                     break;
@@ -47,13 +47,13 @@ namespace _03.Vacation
                     switch (type)
                     {
                         case "Students":
-                            price = 10.46;
+                            price = 10.46m;
                             break;
                         case "Business":
-                            price = 16.0;
+                            price = 16.0m;
                             break;
                         case "Regular":
-                            price = 22.5;
+                            price = 22.5m;
                             break;
                     }
                     break;
