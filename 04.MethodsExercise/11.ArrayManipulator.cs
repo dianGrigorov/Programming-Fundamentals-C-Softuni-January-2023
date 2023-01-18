@@ -235,6 +235,7 @@ static int[] GetLastOddOrEvenElements(int[] arr, int count, string oddOrEvenArg)
         }
     }
     firstIndexes = ResizeArray(firstIndexes, cntIndex);
+    Array.Reverse(firstIndexes);
 
     return firstIndexes;
 }
