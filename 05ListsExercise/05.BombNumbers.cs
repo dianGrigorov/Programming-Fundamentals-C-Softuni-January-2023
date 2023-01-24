@@ -1,38 +1,30 @@
-﻿List<int> targets = Console.ReadLine()
-        .Split()
-        .Select(int.Parse)
-        .ToList();
+﻿
 
-int[] bomb = Console.ReadLine()
-    .Split()
-    .Select(int.Parse)
-    .ToArray();
-int currBomb = bomb[0];
-int power = bomb[1];
+List<int> randomNumbers = Console.ReadLine().Split().Select(int.Parse).ToList();
+List<int> specialNumbers = Console.ReadLine().Split().Select(int.Parse).ToList();
 
-for (int i = 0; i < targets.Count; i++)
+int bombNumber = specialNumbers[0];
+int powerLenght = specialNumbers[1];
+for (int i = 0; i < randomNumbers.Count; i++)
 {
-    if (targets[i] == currBomb)
+    if (bombNumber == randomNumbers[i])
     {
-        if (i - power < 0)
+        int target = randomNumbers[i];
+        if (target == bombNumber)
         {
-            
-                targets.RemoveRange(0, power + 1);
-            
-        }
-        else if (i + power >= targets.Count)
-        {
-            for (int j = targets.Count - 1; j >= i - power; j--)
+            int start = Math.Max(0, i - powerLenght);
+            int end = Math.Min(randomNumbers.Count - 1, i + powerLenght);
+            for (int j = start; j <= end; j++)
             {
-                targets.RemoveAt(j);
+                randomNumbers[j] = 0;
+
             }
-            
-        }
-        else
-        {
-            targets.RemoveRange(i - power, power * 2 + 1);
         }
     }
 }
-
-Console.WriteLine(targets.Sum());
+int sum = 0;
+foreach (var number in randomNumbers)
+{
+    sum += number;
+}
+Console.WriteLine(sum);
