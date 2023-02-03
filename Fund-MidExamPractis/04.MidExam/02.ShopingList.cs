@@ -8,7 +8,7 @@ namespace _02.ShopingList
     {
         static void Main(string[] args)
         {
-           
+
             List<string> shopingList = Console.ReadLine().Split("!", StringSplitOptions.RemoveEmptyEntries).ToList();
             string input;
 
@@ -17,6 +17,7 @@ namespace _02.ShopingList
                 string[] commandArguments = input.Split(" ");
 
                 string command = commandArguments[0];
+
                 UrgentCommand(shopingList, commandArguments, command);
 
                 UnnecesseryCommand(shopingList, commandArguments, command);
@@ -35,14 +36,13 @@ namespace _02.ShopingList
             {
                 string item = commandArguments[1];
 
-                for (int i = 0; i < shopingList.Count; i++)
+                if (shopingList.Contains(item))
                 {
-                    if (item == shopingList[i])
-                    {
-                        shopingList.RemoveAt(i);
-                        shopingList.Add(item);
-                    }
+                    shopingList.Remove(item);
+                    shopingList.Add(item);
+
                 }
+
 
             }
         }
@@ -59,8 +59,9 @@ namespace _02.ShopingList
                     if (oldItem == shopingList[i])
                     {
                         shopingList[i] = newItem;
+                        break;
                     }
-                   
+
                 }
 
             }
@@ -68,15 +69,15 @@ namespace _02.ShopingList
 
         private static void UnnecesseryCommand(List<string> shopingList, string[] commandArguments, string command)
         {
-            if (command == "Unnecessery")
+            if (command == "Unnecessary")
             {
                 string item = commandArguments[1];
-               
-                    if (shopingList.Contains(item))
-                    {
-                        shopingList.Remove(item);
-                    }
-                   
+
+                if (shopingList.Contains(item))
+                {
+                    shopingList.Remove(item);
+                }
+
             }
         }
 
@@ -85,17 +86,13 @@ namespace _02.ShopingList
             if (command == "Urgent")
             {
                 string item = commandArguments[1];
-         
-                
-                    if (shopingList.Contains(item))
-                    {
-                        
-                    }
-                    else
-                    {
-                        shopingList.Insert(0, item);
-                    }
-                
+
+
+                if (!shopingList.Contains(item))
+                {
+                    shopingList.Insert(0, item);
+                }
+
             }
         }
     }
