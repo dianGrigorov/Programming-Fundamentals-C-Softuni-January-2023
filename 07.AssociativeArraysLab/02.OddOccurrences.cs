@@ -13,12 +13,11 @@ foreach (string word in words)
     }
     counts[wordInLowerCase]++;
 }
+counts.Where(x => x.Value % 2 != 0);
 
 foreach (var count in counts)
 {
-    if (count.Value % 2 != 0)
-    {
-        Console.Write($"{count.Key}" + " ");
-    }
+
+    Console.Write(count.Key + " ");
 }
 
