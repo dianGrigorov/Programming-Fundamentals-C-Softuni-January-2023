@@ -3,12 +3,12 @@ using System.Text;
 
 string input = Console.ReadLine();
 
-char[] result = input.ToCharArray();
+StringBuilder result = new StringBuilder();
 
-for (int i = 0; i < input.Length; i++)
+foreach (var ch in input)
 {
-    result[i] = (char)(input[i] + 3);
-    
+    int currChar = ch + 3;
+    result.Append((char)currChar);
 }
 
-Console.WriteLine(string.Join("", result));
+Console.WriteLine(result.ToString());
