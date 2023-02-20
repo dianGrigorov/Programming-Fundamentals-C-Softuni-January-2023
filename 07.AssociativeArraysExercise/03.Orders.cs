@@ -1,37 +1,34 @@
-﻿
-Dictionary<string, List<double>> productList = new Dictionary<string, List<double>>();
+﻿string input;
 
-string input;
+Dictionary<string, double> products = new Dictionary<string, double>();
+Dictionary<string, int> productQuantity = new Dictionary<string, int>();
 
 while ((input = Console.ReadLine()) != "buy")
 {
-    string[] productInfo = input
-        .Split(" ", StringSplitOptions.RemoveEmptyEntries);
+    string[] productIngo = input.Split(" ");
+    string prodKey = productIngo[0];
+    double price = double.Parse(productIngo[1]);
+    int quantity = int.Parse(productIngo[2]);
 
-    string product = productInfo[0];
-    double price = double.Parse(productInfo[1]);
-    double quantity = double.Parse(productInfo[2]);
-
-    var productValue = new List<double> { price, quantity };
-
-    if (!productList.ContainsKey(product))
+    if (!products.ContainsKey(prodKey))
     {
-        productList.Add(product, productValue);
+        products.Add(prodKey, price);
+        productQuantity.Add(prodKey, quantity);
     }
     else
     {
-        productList[product].Add(quantity);
-
-        productList[product].RemoveAt(0);
-        productList[product].Insert(0, price);
+        products[prodKey] = price;
+        productQuantity[prodKey] += quantity;
     }
-    
 }
-
-
-foreach (var item in productList)
+foreach (var product in products)
 {
-    double sum = (item.Value.Sum() - item.Value.First()) * item.Value.First();
-    Console.WriteLine($"{item.Key} -> {sum:f2}");
-}
+    foreach (var item in productQuantity)
+    {
+        if (product.Key == item.Key)
+        {
+            Console.WriteLine($"{product.Key} -> {product.Value * item.Value:f2}");
+        }
 
+    }
+}
