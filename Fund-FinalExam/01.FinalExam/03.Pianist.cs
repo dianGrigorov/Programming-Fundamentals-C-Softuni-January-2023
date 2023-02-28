@@ -1,7 +1,9 @@
 ﻿
+
 int n = int.Parse(Console.ReadLine());
-Dictionary<string, string> pieceComposer = new Dictionary<string, string>();
-Dictionary<string, string> pieceKey = new Dictionary<string, string>();
+
+Dictionary<string, Piece> pieces = new Dictionary<string, Piece>();
+
 
 for (int i = 0; i < n; i++)
 {
@@ -9,11 +11,11 @@ for (int i = 0; i < n; i++)
     string name = pieceInfo[0];
     string composer = pieceInfo[1];
     string key = pieceInfo[2];
-    
-    if (!pieceComposer.ContainsKey(name))
+
+    if (!pieces.ContainsKey(name))
     {
-        pieceComposer.Add(name, composer);
-        pieceKey.Add(name, key);
+        pieces.Add(name, new Piece(composer, key));
+       
     }
 }
 
@@ -29,11 +31,11 @@ while ((input = Console.ReadLine()) != "Stop")
         string composer = commandArg[2];
         string key = commandArg[3];
 
-        if (!pieceComposer.ContainsKey(piece))
+        if (!pieces.ContainsKey(piece))
         {
+
+            pieces.Add(piece, new Piece(composer, key));
             
-            pieceComposer.Add(piece, composer);
-            pieceKey.Add(piece, key);
             Console.WriteLine($"{piece} by {composer} in {key} added to the collection!");
         }
         else
@@ -45,10 +47,10 @@ while ((input = Console.ReadLine()) != "Stop")
     {
         string piece = commandArg[1];
 
-        if (pieceComposer.ContainsKey(piece))
+        if (pieces.ContainsKey(piece))
         {
-            pieceComposer.Remove(piece);
-            pieceKey.Remove(piece);
+            pieces.Remove(piece);
+            
             Console.WriteLine($"Successfully removed {piece}!");
         }
         else
@@ -61,9 +63,9 @@ while ((input = Console.ReadLine()) != "Stop")
         string piece = commandArg[1];
         string key = commandArg[2];
 
-        if (pieceComposer.ContainsKey(piece))
+        if (pieces.ContainsKey(piece))
         {
-            pieceKey[piece] = key;
+            pieces[piece].Key = key;
             Console.WriteLine($"Changed the key of {piece} to {key}!");
         }
         else
@@ -74,15 +76,22 @@ while ((input = Console.ReadLine()) != "Stop")
 
 }
 
-foreach (var item in pieceComposer)
+foreach (var item in pieces)
 {
     //"{Piece} -> Composer: {composer}, Key: {key}"
-    foreach (var key in pieceKey)
+    Console.WriteLine($"{item.Key} -> Composer: {item.Value.Composer}, Key: {item.Value.Key}");
+    
+}
+
+public class Piece
+{
+    public Piece(string composer, string key)
     {
-        if (item.Key == key.Key)
-        {
-            Console.WriteLine($"{item.Key} -> Composer: {item.Value}, Key: {key.Value}");
-        }
+        Composer = composer;
+        Key = key;
     }
-   
+
+    public string Composer { get; set; }
+
+    public string Key { get; set; }
 }
